@@ -4,10 +4,9 @@ from .models import User
 
 
 class UserRegistrationForm(UserCreationForm):
-    '''
-    Custom user registration form that includes a role selection.
-    Allows users to select their role during registration.
-    Requires 'username', 'email', 'role', 'password1', and 'password2' fields.
+    ''' Custom user registration form that includes a role selection.
+
+        :param role: The role of the user, chosen from predefined choices.
     '''
     role = forms.ChoiceField(choices=User.ROLE_CHOICES, required=True)
 

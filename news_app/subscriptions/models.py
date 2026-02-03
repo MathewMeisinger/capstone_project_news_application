@@ -6,9 +6,12 @@ User = settings.AUTH_USER_MODEL
 
 
 class JournalistSubscription(models.Model):
-    '''
-    A model representing a subscription where a reader subscribes to a
-    journalist.
+    '''A model representing a subscription where a reader subscribes to a
+        journalist.
+
+        :reader: ForeignKey to the User model representing the reader.
+        :journalist: ForeignKey to the User model representing the journalist.
+        :created_at: DateTimeField recording when the subscription was created.
     '''
     reader = models.ForeignKey(
         User,
@@ -30,9 +33,12 @@ class JournalistSubscription(models.Model):
 
 
 class NewsletterSubscription(models.Model):
-    '''
-    A model representing a subscription where a reader subscribes to a
-    newsletter.
+    ''' A model representing a subscription where a reader subscribes to a
+        newsletter.
+
+        :reader: ForeignKey to the User model representing the reader.
+        :newsletter: ForeignKey to the Newsletter model.
+        :created_at: DateTimeField recording when the subscription was created.
     '''
     reader = models.ForeignKey(
         User,

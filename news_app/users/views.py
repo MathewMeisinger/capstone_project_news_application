@@ -11,20 +11,24 @@ from articles.models import Article
 
 
 class RegisterView(CreateView):
-    '''
-    View to handle user registration.
-    Utilizes the UserRegistrationForm to create a new user.
-    On successful registration, redirects to the login page.
-    '''
+    """View to handle user registration.
+
+        :model: User model for registration.
+        :form_class: UserRegistrationForm for user input.
+        :template_name: Template for rendering the registration form.
+        :success_url: URL to redirect to upon successful registration.
+    """
     model = User
     form_class = UserRegistrationForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):
-        '''
-        If the form is valid, save the new user and redirect to success URL.
-        '''
+        """Override form_valid to assign user to a group based on role.
+
+        :param form: The validated form instance.
+        :return: HTTP response redirecting to success_url.
+        """
         response = super().form_valid(form)
         role = form.cleaned_data.get('role')
 
@@ -35,12 +39,12 @@ class RegisterView(CreateView):
 
 
 class RoleRedirectView(View):
-    '''
-    Class to redirect the user to the appropriate dashboard.
-    If a users role is reader, journalist or editor they will get
-    different dahsboards.
-    if no role then return login screen.
-    '''
+    """View to redirect users based on their role after login.
+
+        :get: Handles GET requests to redirect users.
+        :param request: The HTTP request object.
+        :return: HTTP response redirecting to the appropriate dashboard.
+    """
 
     def get(self, request):
         user = request.user
@@ -58,9 +62,11 @@ class RoleRedirectView(View):
 
 
 class ReaderDashboardView(LoginRequiredMixin, TemplateView):
-    '''
-    Dashboard view for readers.
-    '''
+    """A view for the reader's dashboard.
+
+        :template_name: The template for the reader dashboard.
+        :get_context_data: Method to add approved articles to the context.
+    """
     template_name = 'dashboards/reader.html'
 
     def get_context_data(self, **kwargs):
@@ -72,23 +78,29 @@ class ReaderDashboardView(LoginRequiredMixin, TemplateView):
 
 
 class EditorDashboardView(LoginRequiredMixin, TemplateView):
-    '''
-    Dashboard view for editors.
-    '''
+    """Dashboard view for Editors.
+
+        :template_name: Template for the editor dashboard.
+    """
     template_name = 'dashboards/editor.html'
 
 
 class JournalistDashboardView(LoginRequiredMixin, TemplateView):
-    '''
-    Dashboard view for Journalists.
-    '''
+    """Docstring for JournalistDashboardView
+
+        :template_name: Template for the journalist dashboard.
+    """
     template_name = 'dashboards/journalist.html'
 
 
 class EntryPointView(View):
-    '''
-    A simple entry point view to test authentication.
-    '''
+    """
+    View to redirect users to appropriate page based on authentication status.
+
+        :get: Handles GET requests to redirect users.
+        :param request: The HTTP request object.
+        :return: HTTP response redirecting to dashboard or login page.
+    """
     def get(self, request):
         if request.user.is_authenticated:
             return redirect('dashboard-redirect')

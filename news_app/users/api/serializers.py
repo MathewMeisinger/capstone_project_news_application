@@ -5,9 +5,7 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
-    '''
-    Serializer for User model to expose id, username, and role fields.
-    '''
+    '''Serializer for User model to expose id, username, and role fields.'''
     class Meta:
         model = User
         fields = ['id', 'username', 'role']

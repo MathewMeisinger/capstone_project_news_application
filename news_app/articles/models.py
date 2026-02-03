@@ -3,18 +3,17 @@ from django.conf import settings
 
 
 class Article(models.Model):
-    '''
-    Model representing a news article.
-    fields:
-    - title: The title of the article.
-    - content: The main content/body of the article.
-    - author: ForeignKey to the User model representing the author of the
-        article.
-    - publisher: ForeignKey to the Publisher model representing the publisher
-        of the article.
-    - approved: Boolean indicating whether the article has been approved for
-        publication.
-    - created_at: DateTime indicating when the article was created.
+    ''' Model representing a news article.
+        fields:
+        - title: The title of the article.
+        - content: The main content/body of the article.
+        - author: ForeignKey to the User model representing the author of the
+            article.
+        - publisher: ForeignKey to the Publisher model representing the
+            publisher of the article.
+        - approved: Boolean indicating whether the article has been approved
+            for publication.
+        - created_at: DateTime indicating when the article was created.
     '''
     title = models.CharField(max_length=200)
     content = models.TextField()

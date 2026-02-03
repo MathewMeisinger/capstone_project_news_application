@@ -3,14 +3,14 @@ from django.conf import settings
 
 
 class Newsletter(models.Model):
-    '''
-    Model representing a newsletter.
-    -title: The title of the newsletter.
-    -description: A brief description of the newsletter.
-    -author: The user who created the newsletter.
-    -articles: Many-to-many relationship with articles included in the
-        newsletter.
-    -created_at: Timestamp when the newsletter was created.
+    ''' Model representing a newsletter.
+
+        -title: The title of the newsletter.
+        -description: A brief description of the newsletter.
+        -author: The user who created the newsletter.
+        -articles: Many-to-many relationship with articles included in the
+            newsletter.
+        -created_at: Timestamp when the newsletter was created.
     '''
     title = models.CharField(max_length=255)
     description = models.TextField()

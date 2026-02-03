@@ -10,17 +10,13 @@ User = get_user_model()
 
 
 def get_jwt_for_user(user):
-    '''
-    Generate JWT tokens for a given user.
-    '''
+    '''Generate JWT tokens for a given user.'''
     refresh = RefreshToken.for_user(user)
     return str(refresh.access_token)
 
 
 class BaseAPITestCase(APITestCase):
-    '''
-    Docstring for BaseAPITestCase
-    '''
+    '''Creates a user to use in the testing process'''
     def create_user(self, username, role):
         return User.objects.create_user(
             username=username,
@@ -36,7 +32,9 @@ class BaseAPITestCase(APITestCase):
 
 
 class ArticleSignalTests(TestCase):
-
+    """
+    Testing the article signals
+    """
     @patch("articles.signals.post_to_x")
     @patch("articles.signals.send_mail")
     def test_signal_fires_on_approval(
@@ -147,6 +145,7 @@ class EditorArticleTests(BaseAPITestCase):
 
 
 class SubscribedArticleTests(BaseAPITestCase):
+    """Tests of the user is subscribed to articles"""
 
     def setUp(self):
         self.reader = self.create_user("reader", "reader")

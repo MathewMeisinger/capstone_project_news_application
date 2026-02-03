@@ -16,10 +16,12 @@ class ReaderSubscriptionsView(
     ReaderRequiredMixin,
     TemplateView
 ):
-    '''
-    View to display the subscriptions of a reader.
-    Shows both journalist and newsletter subscriptions.
-    '''
+    """ View to display all subscriptions of the logged-in reader.
+
+        :Template: subscriptions/reader_subscriptions.html
+        :get_context_data: Fetches journalist and newsletter subscriptions for
+            the reader.
+    """
     template_name = 'subscriptions/reader_subscriptions.html'
 
     def get_context_data(self, **kwargs):
@@ -42,8 +44,13 @@ class SubscribedJournalistArticleListView(
     ReaderRequiredMixin,
     ListView
 ):
-    '''
-    View to display articles from journalists the reader is subscribed to.
+    ''' View to display articles from journalists the reader is subscribed to.
+
+        :model: Article
+        :template_name: subscriptions/journalist_articles.html
+        :context_object_name: articles
+        :get_queryset: Fetches approved articles by the specified journalist.
+        :get_context_data: Adds the journalist to the context.
     '''
     model = Article
     template_name = 'subscriptions/journalist_articles.html'
@@ -73,8 +80,13 @@ class SubscribedNewsletterArticleListView(
     ReaderRequiredMixin,
     ListView
 ):
-    '''
-    View to display articles from newsletters the reader is subscribed to.
+    ''' View to display articles from newsletters the reader is subscribed to.
+
+        :model: Article
+        :template_name: subscriptions/newsletter_articles.html
+        :context_object_name: articles
+        :get_queryset: Fetches approved articles from the specified newsletter.
+        :get_context_data: Adds the newsletter to the context.
     '''
     model = Article
     template_name = 'subscriptions/newsletter_articles.html'
@@ -102,8 +114,9 @@ class SubscribeJournalistView(
     ReaderRequiredMixin,
     View
 ):
-    '''
-    View to handle subscribing a reader to a journalist.
+    ''' View to handle subscribing a reader to a journalist.
+
+        :post: Creates a JournalistSubscription for the reader and journalist.
     '''
     def post(self, request, journalist_id):
         JournalistSubscription.objects.get_or_create(
@@ -118,8 +131,9 @@ class SubscribeNewsletterView(
     ReaderRequiredMixin,
     View
 ):
-    '''
-    View to handle subscribing a reader to a newsletter.
+    '''View to handle subscribing a reader to a newsletter.
+
+        :post: Creates a NewsletterSubscription for the reader and newsletter.
     '''
     def post(self, request, newsletter_id):
         NewsletterSubscription.objects.get_or_create(

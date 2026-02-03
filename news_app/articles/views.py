@@ -21,11 +21,15 @@ class ArticleCreateView(
     JournalistRequiredMixin,
     CreateView
 ):
-    '''
-    View for creating a new Article.
-    Only accessible to logged-in users with journalist role.
-    Uses ArticleCreationForm for input.
-    On successful creation, redirects to the article detail page.
+    ''' View for journalists to create new articles.
+
+        :model: Article
+        :form_class: The form used to create an article.
+        :template_name: The template for rendering the article creation form.
+        :success_url: The URL to redirect to upon successful article creation.
+        :form_valid: Sets the author and approval status before saving.
+        :get_form_kwargs: Passes the current user to the form for any
+            user-specific logic
     '''
     model = Article
     form_class = ArticleCreationForm
@@ -46,10 +50,13 @@ class ArticleCreateView(
 
 
 class ApprovedArticleListView(ListView):
-    '''
-    View for listing all approved articles for the readers.
-    Accessible to all readers.
-    Displays articles that are approved and can be read by readers.
+    ''' View for listing all approved articles for the readers.
+
+        :model: Article
+        :template_name: The template for rendering the list of articles.
+        :context_object_name: The context variable name for the list of
+            articles.
+        :get_queryset: Returns only approved articles.
     '''
     model = Article
     template_name = 'articles/reader_article_list.html'
@@ -61,9 +68,14 @@ class ApprovedArticleListView(ListView):
 
 
 class ReaderArticleDetailView(DetailView):
-    '''
-    View for displaying the details of a specific article to readers.
-    Accessible to all readers.
+    '''View for displaying the details of a specific article to readers.
+
+        :model: Article
+        :template_name: The template for rendering the article details.
+        :context_object_name: The context variable name for the article.
+        :get_queryset: Returns only approved articles.
+        :get_context_data: Adds subscription status to the context if the
+            user is a reader.
     '''
     model = Article
     template_name = 'articles/reader_article_detail.html'
@@ -91,9 +103,14 @@ class JournalistArticleListView(
     JournalistRequiredMixin,
     ListView
 ):
-    '''
-    A view that allows journalists the ability to view all
-    articles.
+    ''' A view that allows journalists the ability to view all
+        articles.
+
+        :model: Article
+        :template_name: The template for rendering the list of articles.
+        :context_object_name: The context variable name for the list of
+            articles.
+        :get_queryset: Returns articles authored by the logged-in journalist.
     '''
     model = Article
     template_name = 'articles/journalist_article_list.html'
@@ -108,9 +125,16 @@ class JournalistArticleUpdateView(
     JournalistRequiredMixin,
     UpdateView
 ):
-    '''
-    A view that allows journalists to update their own articles
-    Articles that have not yet been approved can be edited.
+    '''A view that allows journalists to update their own articles
+
+        :model: allows the Article model to be used.
+        :form_class: The form used to update an article.
+        :template_name: The template for rendering the article update form.
+        :success_url: The URL to redirect to upon successful article update.
+        :get_queryset: Returns articles authored by the logged-in journalist
+            that are not yet approved.
+        :get_form_kwargs: Passes the current user to the form for any
+            user-specific logic.
     '''
     model = Article
     form_class = ArticleCreationForm
@@ -134,10 +158,12 @@ class JournalistDeleteView(
     JournalistRequiredMixin,
     DeleteView
 ):
-    '''
-    View for a journalist to delete their articles.
-    Only articles that have not been approved by
-    an editor can be deleted.
+    '''View for a journalist to delete their articles.
+
+        :model: Article
+        :template_name: The template for rendering the delete confirmation.
+        :success_url: The URL to redirect to upon successful deletion.
+        :get_queryset: Returns articles authored by the logged-in journalist
     '''
     model = Article
     template_name = 'articles/article_confirm_delete.html'
@@ -155,10 +181,14 @@ class EditorArticleListView(
     EditorRequiredMixin,
     ListView
 ):
-    '''
-    A view to allow editors to view a list of articles.
-    Will include options specific to editors
-    Will able to edit and approve articles from this view.
+    '''A view to allow editors to view a list of articles.
+
+        :model: Article
+        :template_name: The template for rendering the list of articles.
+        :context_object_name: The context variable name for the list of
+            articles.
+        :get_queryset: Returns articles that are either independent or
+            belong to publishers the editor is associated with.
     '''
     model = Article
     template_name = 'articles/editor_article_list.html'
@@ -177,10 +207,13 @@ class EditorArticleDeleteView(
     EditorRequiredMixin,
     DeleteView
 ):
-    '''
-    A view to allow editors to delete articles.
-    Can delete all independent articles or articles that
-    are within their publishers.
+    '''A view to allow editors to delete articles.
+
+        :model: Article
+        :template_name: The template for rendering the delete confirmation.
+        :success_url: The URL to redirect to upon successful deletion.
+        :get_queryset: Returns articles that are either independent or
+            belong to publishers the editor is associated with.
     '''
     model = Article
     template_name = 'articles/article_confirm_delete.html'
@@ -199,9 +232,18 @@ class EditorArticleReviewView(
     EditorRequiredMixin,
     UpdateView
 ):
-    '''
-    A view that will allow editors to view and edit the articles posted for
-    review and approve them at the same time.
+    '''A view that will allow editors to view and edit the articles posted for
+        review and approve them at the same time.
+
+        :model: Article
+        :form_class: The form used to review and approve an article.
+        :template_name: The template for rendering the article review form.
+        :success_url: The URL to redirect to upon successful article review.
+        :get_queryset: Returns articles that are either independent or
+            belong to publishers the editor is associated with.
+        :get_form_kwargs: Passes the current user to the form for any
+            user-specific logic.
+        :form_valid: Sets the article as approved if the 'approved' button
     '''
     model = Article
     form_class = ArticleCreationForm

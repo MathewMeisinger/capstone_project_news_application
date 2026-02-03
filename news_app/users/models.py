@@ -3,8 +3,13 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    '''
-    Custom user model extending AbstractUser.
+    ''' Custom user model extending AbstractUser.
+            Adds role-based functionality and subscription relationships.
+            :role: Defines the user's role within the application.
+            :subscribed_to_publisher: Many-to-many relationship to publishers
+                the user is subscribed to.
+            :subscribed_to_journalist: Many-to-many relationship to
+                journalists the user is subscribed to.
     '''
     ROLE_CHOICES = (
         ('reader', 'Reader'),

@@ -12,9 +12,13 @@ class PublisherCreateView(
     EditorRequiredMixin,
     CreateView
 ):
-    '''
-    A view that will allow editors to create a publisher and add
-    editors and journalists to that publisher at time of creation.
+    ''' A view that will allow editors to create a publisher and add
+        editors and journalists to that publisher at time of creation.
+
+        :model: Publisher
+        :form_class: The form used to create a publisher
+        :template_name: Template used to render the publisher creation form
+        :success_url: URL to redirect to upon successful creation
     '''
     model = Publisher
     form_class = PublisherForm
@@ -27,9 +31,13 @@ class PublisherUpdateView(
     EditorRequiredMixin,
     UpdateView
 ):
-    '''
-    A view to allow editors to add journalists or editors to the publisher
-    after creation.
+    ''' A view to allow editors to add journalists or editors to the publisher
+        after creation.
+
+        :model: Publisher
+        :form_class: The form used to update the publisher
+        :template_name: Template used to render the publisher update form
+        :success_url: URL to redirect to upon successful update
     '''
     model = Publisher
     form_class = PublisherForm
@@ -42,8 +50,11 @@ class PublisherListView(
     EditorRequiredMixin,
     ListView
 ):
-    '''
-    A view for editors to see a list of the publishers.
+    ''' A view for editors to see a list of the publishers.
+
+        :model: Publisher
+        :template_name: Template used to render the publisher list
+        :context_object_name: The context name for the list of publishers
     '''
     model = Publisher
     template_name = 'publishers/publisher_list.html'

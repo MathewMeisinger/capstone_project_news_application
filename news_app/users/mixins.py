@@ -2,9 +2,10 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 class JournalistRequiredMixin(UserPassesTestMixin):
-    '''
-    Mixin to ensure that the user is a journalist.
-    Journalists are users with is_journalist attribute set to True.
+    ''' Mixin to ensure that the user is a journalist.
+
+        :test_func: Checks if the user is authenticated and has the journalist
+        role.
     '''
     def test_func(self):
         return (
@@ -14,9 +15,10 @@ class JournalistRequiredMixin(UserPassesTestMixin):
 
 
 class EditorRequiredMixin(UserPassesTestMixin):
-    '''
-    Mixin to ensure that the user is an editor.
-    Editors are users with is_editor attribute set to True.
+    ''' Mixin to ensure that the user is an editor.
+
+        :test_func: Checks if the user is authenticated and has the editor
+        role.
     '''
     def test_func(self):
         return (
@@ -26,9 +28,10 @@ class EditorRequiredMixin(UserPassesTestMixin):
 
 
 class ReaderRequiredMixin(UserPassesTestMixin):
-    '''
-    Mixin to ensure that the user is a reader.
-    Readers are users with is_reader attribute set to True.
+    ''' Mixin to ensure that the user is a reader.
+
+        :test_func: Checks if the user is authenticated and has the reader
+        role.
     '''
     def test_func(self):
         return (
