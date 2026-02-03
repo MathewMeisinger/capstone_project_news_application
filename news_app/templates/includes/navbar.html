@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+
+        <!-- Brand -->
+        <a class="navbar-brand" href="{% url 'dashboard-redirect' %}">
+            The News Board
+        </a>
+
+        <!-- Mobile toggle -->
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent"
+            aria-controls="navbarContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar content -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+
+            <!-- Left side (optional future links) -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard-redirect' %}">
+                            Home
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            <!-- Right side -->
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item me-3">
+                        <span class="navbar-text text-light">
+                            Logged in as <strong>{{ user.username }}</strong>
+                            <span class="badge bg-secondary ms-1">
+                                {{ user.role }}
+                            </span>
+                        </span>
+                    </li>
+
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-light btn-sm">
+                                Logout
+                            </button>
+                        </form>
+                    </li>
+
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">
+                            Login
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light btn-sm ms-lg-2" href="{% url 'register' %}">
+                            Register
+                        </a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</nav>

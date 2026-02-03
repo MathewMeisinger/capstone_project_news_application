@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Publishers{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Publishers</h1>
+
+<!-- Primary action -->
+<div class="mb-4">
+    <a href="{% url 'publisher-create' %}"
+       class="btn btn-primary">
+        Create Publisher
+    </a>
+</div>
+
+{% if publishers %}
+    <div class="list-group">
+
+        {% for publisher in publishers %}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+
+                <!-- Publisher name -->
+                <h5 class="mb-0">
+                    {{ publisher.name }}
+                </h5>
+
+                <!-- Actions -->
+                <a href="{% url 'publisher-update' publisher.pk %}"
+                   class="btn btn-outline-secondary btn-sm">
+                    Update
+                </a>
+
+            </div>
+        {% endfor %}
+
+    </div>
+{% else %}
+    <p class="text-muted">
+        No publishers created.
+    </p>
+{% endif %}
+{% endblock %}

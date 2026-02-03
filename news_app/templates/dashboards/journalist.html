@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Journalist Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="mb-2">Journalist Dashboard</h1>
+<p class="text-muted mb-4">
+    Create articles and manage newsletters
+</p>
+
+<div class="row g-3">
+
+    <div class="col-md-6">
+        <a href="{% url 'journalist-articles' %}"
+           class="btn btn-outline-primary w-100 py-3">
+            My Articles
+        </a>
+    </div>
+
+    <div class="col-md-6">
+        <a href="{% url 'journalist-newsletters' %}"
+           class="btn btn-outline-success w-100 py-3">
+            My Newsletters
+        </a>
+    </div>
+
+</div>
+{% endblock %}

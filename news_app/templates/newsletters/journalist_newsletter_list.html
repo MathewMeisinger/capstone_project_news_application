@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}My Newsletters{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">My Newsletters</h1>
+
+<!-- Primary action -->
+<div class="mb-4">
+    <a href="{% url 'journalist-newsletter-create' %}"
+       class="btn btn-primary">
+        Create Newsletter
+    </a>
+</div>
+
+{% if newsletters %}
+    <div class="list-group">
+
+        {% for newsletter in newsletters %}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+
+                <!-- Newsletter title -->
+                <h5 class="mb-0">
+                    {{ newsletter.title }}
+                </h5>
+
+                <!-- Actions -->
+                <div class="btn-group" role="group">
+
+                    <a href="{% url 'journalist-newsletter-update' newsletter.pk %}"
+                       class="btn btn-outline-secondary btn-sm">
+                        Update
+                    </a>
+
+                    <a href="{% url 'journalist-newsletter-delete' newsletter.pk %}"
+                       class="btn btn-outline-danger btn-sm">
+                        Delete
+                    </a>
+
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% else %}
+    <p class="text-muted">
+        You have not created any newsletters yet.
+    </p>
+{% endif %}
+{% endblock %}

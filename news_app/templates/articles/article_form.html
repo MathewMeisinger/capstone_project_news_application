@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if object %}
+        Edit Article
+    {% else %}
+        Create Article
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">
+    {% if object %}
+        Edit Article
+    {% else %}
+        Create Article
+    {% endif %}
+</h1>
+
+<form method="post" novalidate class="col-lg-8">
+
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <!-- Title -->
+    <div class="mb-4">
+        <label for="{{ form.title.id_for_label }}"
+               class="form-label fw-semibold">
+            {{ form.title.label }}
+        </label>
+        {{ form.title }}
+        {% if form.title.errors %}
+            <div class="text-danger small mt-1">
+                {{ form.title.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Content -->
+    <div class="mb-4">
+        <label for="{{ form.content.id_for_label }}"
+               class="form-label fw-semibold">
+            {{ form.content.label }}
+        </label>
+        {{ form.content }}
+        {% if form.content.errors %}
+            <div class="text-danger small mt-1">
+                {{ form.content.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Publisher -->
+    {% if form.publisher %}
+        <div class="mb-4">
+            <label for="{{ form.publisher.id_for_label }}"
+                   class="form-label fw-semibold">
+                {{ form.publisher.label }}
+            </label>
+            {{ form.publisher }}
+            {% if form.publisher.errors %}
+                <div class="text-danger small mt-1">
+                    {{ form.publisher.errors }}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <!-- Actions -->
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">
+            {% if object %}
+                Update Article for Review
+            {% else %}
+                Submit Article for Review
+            {% endif %}
+        </button>
+
+        <a href="{% url 'journalist-articles' %}"
+           class="btn btn-outline-secondary ms-2">
+            Back to My Articles
+        </a>
+    </div>
+
+</form>
+{% endblock %}

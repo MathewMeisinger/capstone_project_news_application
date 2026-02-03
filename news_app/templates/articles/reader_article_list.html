@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}All Articles{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">All Articles</h1>
+
+{% if articles %}
+    <div class="list-group">
+
+        {% for article in articles %}
+            <div class="list-group-item">
+
+                <h5 class="mb-2">
+                    {{ article.title }}
+                </h5>
+
+                <p class="mb-2 text-muted">
+                    {{ article.content|truncatewords:30 }}
+                </p>
+
+                <p class="mb-3">
+                    <em>By {{ article.author.username }}</em>
+                </p>
+
+                <a href="{% url 'reader-article-detail' article.pk %}"
+                   class="btn btn-outline-primary btn-sm">
+                    Read Article
+                </a>
+
+            </div>
+        {% endfor %}
+
+    </div>
+{% else %}
+    <p class="text-muted">
+        No articles available.
+    </p>
+{% endif %}
+{% endblock %}

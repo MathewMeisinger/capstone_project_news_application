@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Articles{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Manage Articles</h1>
+
+{% if articles %}
+    <div class="list-group">
+
+        {% for article in articles %}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+
+                <!-- Article title + status -->
+                <div>
+                    <h5 class="mb-1">{{ article.title }}</h5>
+
+                    {% if article.approved %}
+                        <span class="badge bg-success">
+                            Approved
+                        </span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark">
+                            Pending Review
+                        </span>
+                    {% endif %}
+                </div>
+
+                <!-- Actions -->
+                <div class="btn-group" role="group">
+
+                    <a href="{% url 'editor-article-review' article.pk %}"
+                       class="btn btn-outline-primary btn-sm">
+                        Review
+                    </a>
+
+                    <a href="{% url 'editor-article-delete' article.pk %}"
+                       class="btn btn-outline-danger btn-sm">
+                        Delete
+                    </a>
+
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% else %}
+    <p class="text-muted">
+        No articles found.
+    </p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+
+<article class="col-lg-8">
+
+    <!-- Article header -->
+    <header class="mb-4">
+        <h1 class="mb-2">
+            {{ object.title }}
+        </h1>
+
+        <p class="text-muted mb-0">
+            <em>By {{ object.author.username }}</em>
+        </p>
+    </header>
+
+    <!-- Article content -->
+    <section class="mb-5">
+        <p>
+            {{ object.content }}
+        </p>
+    </section>
+
+    <!-- Subscription action -->
+    {% if user.is_authenticated and user.role == "reader" %}
+        <section class="border-top pt-4">
+
+            {% if not is_subscribed %}
+                <form method="post"
+                      action="{% url 'subscribe-journalist' object.author.id %}">
+                    {% csrf_token %}
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Subscribe to {{ object.author.username }}
+                    </button>
+                </form>
+            {% else %}
+                <div class="alert alert-success mb-0">
+                    You are subscribed to this journalist.
+                </div>
+            {% endif %}
+
+        </section>
+    {% endif %}
+
+</article>
+
+{% endblock %}

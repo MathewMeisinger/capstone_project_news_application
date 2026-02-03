@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}All Newsletters{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">All Newsletters</h1>
+
+{% if newsletters %}
+    <div class="list-group">
+
+        {% for newsletter in newsletters %}
+            <div class="list-group-item">
+
+                <h5 class="mb-2">
+                    {{ newsletter.title }}
+                </h5>
+
+                <p class="mb-3 text-muted">
+                    {{ newsletter.description }}
+                </p>
+
+                <a href="{% url 'reader-newsletter-detail' newsletter.pk %}"
+                   class="btn btn-outline-primary btn-sm">
+                    View Newsletter
+                </a>
+
+            </div>
+        {% endfor %}
+
+    </div>
+{% else %}
+    <p class="text-muted">
+        No newsletters available.
+    </p>
+{% endif %}
+{% endblock %}

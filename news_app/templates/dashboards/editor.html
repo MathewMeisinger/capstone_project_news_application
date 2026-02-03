@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Editor Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="mb-2">Editor Dashboard</h1>
+<p class="text-muted mb-4">
+    Review, approve, and manage platform content
+</p>
+
+<div class="row g-3">
+
+    <div class="col-md-4">
+        <a href="{% url 'editor-articles' %}"
+           class="btn btn-outline-primary w-100 py-3">
+            Manage Articles
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="{% url 'editor-newsletters' %}"
+           class="btn btn-outline-success w-100 py-3">
+            Manage Newsletters
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="{% url 'publisher-list' %}"
+           class="btn btn-outline-secondary w-100 py-3">
+            Manage Publishers
+        </a>
+    </div>
+
+</div>
+{% endblock %}

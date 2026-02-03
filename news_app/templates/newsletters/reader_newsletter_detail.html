@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+
+<section class="col-lg-8">
+
+    <!-- Newsletter header -->
+    <header class="mb-4">
+        <h1 class="mb-2">
+            {{ object.title }}
+        </h1>
+
+        {% if object.description %}
+            <p class="text-muted mb-3">
+                {{ object.description }}
+            </p>
+        {% endif %}
+    </header>
+
+    <!-- Subscription action -->
+    {% if user.is_authenticated and user.role == "reader" %}
+        <section class="mb-5">
+
+            {% if not is_subscribed %}
+                <form method="post"
+                      action="{% url 'subscribe-newsletter' object.pk %}">
+                    {% csrf_token %}
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Subscribe to Newsletter
+                    </button>
+                </form>
+            {% else %}
+                <div class="alert alert-success mb-0">
+                    You are subscribed to this newsletter.
+                </div>
+            {% endif %}
+
+        </section>
+    {% endif %}
+
+    <hr class="my-5">
+
+    <!-- Articles in newsletter -->
+    <section>
+        <h2 class="mb-4">Articles</h2>
+
+        {% if articles %}
+            <div class="list-group">
+
+                {% for article in articles %}
+                    <div class="list-group-item">
+
+                        <h5 class="mb-2">
+                            {{ article.title }}
+                        </h5>
+
+                        <p class="mb-3 text-muted">
+                            {{ article.content|truncatewords:30 }}
+                        </p>
+
+                        <p class="mb-3">
+                            <em>By {{ article.author.username }}</em>
+                        </p>
+
+                        <a href="{% url 'reader-article-detail' article.pk %}"
+                           class="btn btn-outline-primary btn-sm">
+                            Read Full Article
+                        </a>
+
+                    </div>
+                {% endfor %}
+
+            </div>
+        {% else %}
+            <p class="text-muted">
+                No articles in this newsletter.
+            </p>
+        {% endif %}
+    </section>
+
+</section>
+
+{% endblock %}

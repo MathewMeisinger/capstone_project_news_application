@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if object %}
+        Edit Newsletter
+    {% else %}
+        Create Newsletter
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">
+    {% if object %}
+        Edit Newsletter
+    {% else %}
+        Create Newsletter
+    {% endif %}
+</h1>
+
+<form method="post" novalidate class="col-lg-8">
+
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <!-- Title -->
+    <div class="mb-4">
+        <label for="{{ form.title.id_for_label }}"
+               class="form-label fw-semibold">
+            {{ form.title.label }}
+        </label>
+        {{ form.title }}
+        {% if form.title.errors %}
+            <div class="text-danger small mt-1">
+                {{ form.title.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Description -->
+    <div class="mb-4">
+        <label for="{{ form.description.id_for_label }}"
+               class="form-label fw-semibold">
+            {{ form.description.label }}
+        </label>
+        {{ form.description }}
+        {% if form.description.errors %}
+            <div class="text-danger small mt-1">
+                {{ form.description.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Articles (Many-to-Many) -->
+    {% if form.articles %}
+        <div class="mb-4">
+            <label for="{{ form.articles.id_for_label }}"
+                   class="form-label fw-semibold">
+                {{ form.articles.label }}
+            </label>
+            {{ form.articles }}
+            {% if form.articles.errors %}
+                <div class="text-danger small mt-1">
+                    {{ form.articles.errors }}
+                </div>
+            {% endif %}
+            <div class="form-text">
+                Select one or more articles to include in this newsletter.
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Actions -->
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">
+            Save Newsletter
+        </button>
+    </div>
+
+</form>
+{% endblock %}

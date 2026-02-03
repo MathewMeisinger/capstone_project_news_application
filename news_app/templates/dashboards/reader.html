@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Reader Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="mb-2">Reader Dashboard</h1>
+<p class="text-muted mb-4">
+    View subscribed articles and newsletters
+</p>
+
+<div class="row g-3">
+
+    <div class="col-md-4">
+        <a href="{% url 'approved-articles' %}"
+           class="btn btn-outline-primary w-100 py-3">
+            Browse Articles
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="{% url 'reader-newsletters' %}"
+           class="btn btn-outline-success w-100 py-3">
+            Browse Newsletters
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="{% url 'reader-subscriptions' %}"
+           class="btn btn-outline-secondary w-100 py-3">
+            My Subscriptions
+        </a>
+    </div>
+
+</div>
+{% endblock %}
